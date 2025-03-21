@@ -22,6 +22,10 @@ export default function AddTask({ onAddTaskSubmit }) {
             />
 
             <button onClick={() => {
+                // Verificar se o titulo e a descriçao estao preenchidos , .trim para nao poder adcionar com espaço em branco
+                if (!title.trim() || !description.trim()) {
+                    return alert("Preencha o título e a descriçâo da tarefa.")
+                }
                 onAddTaskSubmit(title, description)
                 setTitle("")
                 setDescription("")
