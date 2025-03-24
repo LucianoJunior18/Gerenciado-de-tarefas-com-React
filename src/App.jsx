@@ -1,29 +1,16 @@
 import { useState } from "react";
 import Tasks from "./components/Tasks";
 import AddTask from "./components/AddTask";
+import { useEffect } from "react";
 
 export default function App() {
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      title: "Estudar programaçâo",
-      description: "Estudar programaçâo para se torna um desenvolvedor full stack",
-      isCompleted: false,
-    },
-    {
-      id: 2,
-      title: "Estudar inglês",
-      description: "Estudar inglês para se torna fluente",
-      isCompleted: false
-    },
-    {
-      id: 3,
-      title: "Estudar matematica",
-      description: "Estudar matematica para se torna um desenvolvedor full stack",
-      isCompleted: false
-    }
+  const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem("tasks"))
+    || [])
 
-  ])
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks))
+
+  }, [tasks]);
 
   function onTaskClick(taskId) {
     const newTasks = tasks.map(task => {
@@ -44,7 +31,7 @@ export default function App() {
 
   function onAddTaskSubmit(title, description) {
     const newTask = {
-      id: tasks.length + 1,
+      id: tasks.length + 2,
       title,
       description,
       isCompleted: false
